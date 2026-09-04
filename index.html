@@ -277,6 +277,7 @@
       </thead>
       <tbody id="posBody"></tbody>
     </table>
+    <div class="legend"><span class="swatch"></span> 🏆 </div>
   </section>
 
   <!-- ===================== EQUIPOS GOLEADORES ===================== -->
@@ -308,7 +309,7 @@
 
 </main>
 
-<footer>Sistemas DC Diseños J&E</footer>
+<footer>Diseños DC Sistemas J&E</footer>
 
 <script>
 // =====================================================================
@@ -563,7 +564,7 @@ function renderResumen() {
   document.getElementById('catGrid').innerHTML = categorias.map(cat => {
     const equipos = Object.values(DATA[cat]).flat();
     const nGrupos = Object.keys(DATA[cat]).length;
-    const lider = [...equipos].sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc))[0];
+    const lider = [...equipos].sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf || a.gc - b.gc)[0];
     return `
       <div class="cat-card" onclick="irACategoria('${cat}')">
         <div class="cat-name">${cat}</div>
@@ -586,7 +587,7 @@ function renderPosiciones() {
   const sufijoGrupo = grupoActual !== 'TODOS' ? ` — ${grupoActual}` : '';
   document.getElementById('posTitulo').textContent = `Tabla de posiciones — ${categoriaActual}${sufijoGrupo}`;
   const equipos = [...equiposFiltrados()]
-    .sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf);
+    .sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf || a.gc - b.gc);
 
   document.getElementById('posBody').innerHTML = equipos.map((e, i) => `
     <tr class="${i < 2 ? 'promo' : ''}">
@@ -669,4 +670,4 @@ setInterval(() => cargarDatosEnVivo(false), AUTO_REFRESH_MS);
 </script>
 
 </body>
-</html>
+</html> 
